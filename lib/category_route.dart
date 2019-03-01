@@ -59,9 +59,41 @@ static const _baseColors =<ColorSwatch>[
     'splash': Color(0xFFF94D56),
     'error': Color(0xFF912D2D),
   })
-];
+]; 
   @override
+ void initState() { 
+  super.initState();
+  for (var i= 0; <  _categoryNames.length; i++){
+var category = Category(
+  name: _categoryNames[i],
+  color: _baseColors[i],
+  iconLocation: Icons.cake,
+  units: _retrieveUnitList(_categoryNames[i]),
+);
+if (i==0){
+  _defaultCategory = category;
+}
+_categories.add(category);
+  }
+}
 
+void _onCategoryTap(Category category){
+  setState(() {
+      _currentCategory = category;
+    });
+}
+
+Widget _buildCategoryWidgets(){
+  return ListView.builder(
+    itemBuilder: (BuildContext context, int index){
+      return CategoryTile(
+        category: _categories[index],
+        onTap: _onCategoryTap,
+      );
+    },
+    itemCount: _categories.length,
+  );
+}
   Widget build(context){
     return MaterialApp(
       
