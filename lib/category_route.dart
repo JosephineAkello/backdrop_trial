@@ -94,7 +94,28 @@ Widget _buildCategoryWidgets(){
     itemCount: _categories.length,
   );
 }
+
+List<Unit> _retrieveUnitList(String categoryName){
+  return List.generate(10, (int i){
+    i += 1;
+    return Unit(
+      name: '$categoryName Unit $i',
+      conversation: i.toDouble(),
+    );
+  });
+}
+
+@override
   Widget build(context){
+    final listview = Padding(
+      padding: EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+        bottom: 48.0,
+      ),
+      child: _buildCategoryWidgets(),
+    );
+    
     return MaterialApp(
       
     );
