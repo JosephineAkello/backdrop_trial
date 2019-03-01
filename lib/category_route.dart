@@ -115,9 +115,17 @@ List<Unit> _retrieveUnitList(String categoryName){
       ),
       child: _buildCategoryWidgets(),
     );
-    
-    return MaterialApp(
-      
+
+    return Backdrop(
+      _currentCategory:
+      _currentCategory==null ?
+       _defaultCategory: _currentCategory,
+       frontpanel: _currentCategory == null ?
+       UnitConverter(category: _defaultCategory)
+       : UnitConverter(category: _currentCategory),
+      backPanel: listview,
+      frontTitle: Text('Unit converter'),
+      backTile: Text('Select a Category'),
     );
   }
 }
