@@ -54,15 +54,45 @@ Widget build(context){
 
   );
 }
-
-class _BackdropTitle extends AnimatedWidget{
-
 }
+class _BackdropTitle extends AnimatedWidget{
+  final Widget frontTitle;
+  final Widget backTitle;
+
+  const _BackdropTitle({
+    Key key,
+    Listenable listenable,
+    this.frontTitle,
+    this.backTitle,
+  })  :super(key: key, listenable: listenable);
+
 
 @override
-
 Widget build(context){
+  final Animation<double> animation =this.listenable;
   return DefaultTextStyle(
+   style: Theme.of(context).primaryTextTheme.title,
+   softWrap: false,
+   overflow: TextOverflow.ellipsis,
 
+   child: Stack(
+     children: <Widget>[
+       Opacity(
+         opacity: CurvedAnimation(
+           parent: ReverseAnimation(animation),
+           curve: Interval(0.5, 1.0),
+).value,
+child: backTitle,
+       ),
+       Opacity(
+         opacity: CurvedAnimation(
+           parent: animation,
+           curve: Interval(0.5, 1.0),
+         ).value,
+         child: frontTitle,
+       ),
+     ],
+   ),
   );
+}
 }
