@@ -98,6 +98,23 @@ child: backTitle,
 }
 
 class Backdrop extends StatefulWidget{
+  final Category currentCategory;
+  final Widget frontPanel;
+  final Widget backPanel;
+  final Widget frontTitle;
+  final Widget backTitle;
+
+  const Backdrop({
+    @required this.currentCategory,
+    @required this.frontPanel,
+    @required this.backPanel,
+    @required this.frontTitle,
+    @required  this.backTitle,
+  })  : assert(currentCategory != null),
+        assert(frontPanel !=null),
+        assert(backPanel != null),
+        assert(frontTitle !=null),
+        assert(backTitle !=null);
   @override
   _BackdropState createState() => _BackdropState();
 }
