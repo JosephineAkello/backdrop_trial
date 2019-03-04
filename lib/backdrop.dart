@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const double _kFlingVelocity = 2.0;
+
 class _BackdropPanel extends StatelessWidget{
 const _BackdropPanel({
   Key key,
@@ -30,7 +32,7 @@ Widget build(context){
       children: <Widget>[
         GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onVerticalDragUpdate:onVerticalDragUpdate,
+          onVerticalDragUpdate: onVerticalDragUpdate,
           onVerticalDragEnd: onVerticalDragEnd,
           onTap: onTap,
           child: Container(
@@ -120,7 +122,7 @@ class Backdrop extends StatefulWidget{
 }
 
 class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin{
- final GlobalKey _backdropkey= GlobalKey(debugLabel: 'Backdrp');
+ final GlobalKey _backdropKey= GlobalKey(debugLabel: 'Backdrp');
   AnimationController _controller;
 
   @override
@@ -132,6 +134,95 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
       value: 1.0,
       vsync: this,
     );
+  }
+
+  @override
+  void didUpdateWidget(Backdrop old){
+    super.didUpdateWidget(old);
+    if(widget.currentCategory !=old.currentCategory){
+      setState(() {
+              _controller.fling(
+                velocity: _backdropPanelVisible ? -_kFlingVelocity : _kFlingVelocity);
+  
+            });
+    } else if (!_backdropPanelVisible){
+      setState(() {
+              _controller.fling(velocity: _kFlingVelocity);
+            });
+    }
+  }
+
+  @override
+  void dispose(){
+    _controller.dispose();
+    super.dispose();
+  }
+
+  bool get _backdropPanelVisible{
+    
+  final AnimationStatus status =_controller.status;
+ return status == AnimationStatus.completed ||
+ status == AnimationStatus.forward;
+  }
+
+  void _toggleBackdropPanelVisibility(){
+    FocusScope.of(context).requestFocus(FocusNode());
+    _controller.fling(
+      velocity: _backdropPanelVisible ? -_kFlingVelocity : _kFlingVelocity);
+    
+  }
+  double get _backdropHeight {
+final RenderBox renderBox = _backdropKey.currentContext.findRenderObject();
+return renderBox.size.height;
+  }
+void _handleDragUpdate(DragUpdateDetails details){
+  if (_controller.isAnimating || _controller.status== AnimationStatus.completed)
+  return;
+  _controller.value -= details.primaryDelta / _backdropHeight;
+
+}
+  void _handleDragEnd(DragEndDetails details) {
+    if (_controller.isAnimating || _controller.status== AnimationStatus.completed) return;
+
+    final double flingVelocity =
+    details.velocity.pixelsPerSecond.dy / _backdropHeight;
+  if (flingVelocity < 0.0)
+  _controller.fling(velocity: math.max(_kFlingVelocity, -flingVelocity));
+ else if(flingVelocity > 0.0)
+ _controller.fling(velocity: math.min(-_kFlingVelocity, -flingVelocity));
+ else
+ _controller.fling(
+   velocity: _controller.value < 0.5  ? -_kFlingVelocity : _kFlingVelocity);
+ 
+  }
+
+  Widget _buildStack(context, BoxConstraints constraints){
+  const double panelTitleHeight = 48.0;
+  final Size panelSize = constraints.biggest;
+  final double panelTop = panelSize.height - panelTitleHeight;
+
+  Animation<RelativeRect> panelAnimation = RelativeRectTween(
+    begin: RelativeRect.fromLTRB(0.0, panelTop, 0.0, panelTop - panelSize.height),
+end: RelativeRect.fromLTRB(0.0, 0.0, 0.0, 0.0),).animate(_controller.view);
+  return Container(
+    key:  _backdropKey,
+    color: widget.currentCategory.color,
+    child: Stack(
+      children: <Widget>[
+        widget.backPanel,
+        PositionedTransition(
+          rect: panelAnimation,
+          child: _BackdropPanel(
+            onTap: _toggleBackdropPanelVisibility,
+            onVerticalDragUpdate: _handleDragUpdate,
+            onVerticalDragEnd: _handleDragEnd,
+            title: Text(widget.currentCategory.name),
+            child: widget.frontPanel,
+          ),
+        )
+      ],
+    ),
+  );
   }
   @override
   Widget build(contxt){
