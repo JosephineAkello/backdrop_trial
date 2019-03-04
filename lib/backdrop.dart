@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'category.dart';
+import 'package:meta/meta.dart';
 
 const double _kFlingVelocity = 2.0;
 
