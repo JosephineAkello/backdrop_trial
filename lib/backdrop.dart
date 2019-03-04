@@ -119,10 +119,19 @@ class Backdrop extends StatefulWidget{
   _BackdropState createState() => _BackdropState();
 }
 
-class _BackdropState extends State<Backdrop>{
+class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin{
+ final GlobalKey _backdropkey= GlobalKey(debugLabel: 'Backdrp');
+  AnimationController _controller;
+
   @override
   void initState(){
     super.initState();
+
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 300),
+      value: 1.0,
+      vsync: this,
+    );
   }
   @override
   Widget build(contxt){
