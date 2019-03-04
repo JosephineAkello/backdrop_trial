@@ -109,6 +109,27 @@ class _BackdropState extends State<Backdrop>{
   }
   @override
   Widget build(contxt){
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: widget.currentCategory.color,
+      elevation: 0.0,
+      leading: IconButton(
+        onPressed: _toggleBackdropPanelVisibility,
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.close_menu,
+          progress: _controller.view,
+        ),
+      ),
+      title: _BackdropTitle(
+        listenable: _controller.view,
+        frontTitle: widget.frontTitle,
+        backTitle: widget.backTitle,
+      ),
+      ),
+      body: LayoutBuilder(
+        builder: _buildStack,
+      ),
+      resizeToAvoidBottomPadding: false,
+    );
   }
 }
