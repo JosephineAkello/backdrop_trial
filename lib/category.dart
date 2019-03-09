@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'unit.dart';
 
-class Category{
+class Category {
   final String name;
   final ColorSwatch color;
   final List<Unit> units;
   final IconData iconLocation;
-}
+
 
 const Category({
   @required this.name,
