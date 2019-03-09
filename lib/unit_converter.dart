@@ -76,7 +76,7 @@ class _UnitConverterState extends State<UnitConverter>{
    }
    return outputNum;
  }
- void _updateConversion(){
+ void _updateInputValue(String input){
    setState(() {
         if (input == null || input.isEmpty){
           _convertedValue ='';
