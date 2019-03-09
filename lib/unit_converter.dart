@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 
+const _padding = EdgeInsets.all(16.0);
 
 class UnitConverter extends StatefulWidget{
 
+final Category category;
+
+const UnitConverter({
+  @required this.category,
+}) : assert(category != null);
+
+@override
 _UnitConverterState createState() => _UnitConverterState();
 }
 
