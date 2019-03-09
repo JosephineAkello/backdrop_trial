@@ -37,7 +37,6 @@ class _UnitConverterState extends State<UnitConverter>{
    }
  }
 
- @override
  void _createDropdownMenuItems(){
    var newItems =<DropdownMenuItem>[];
    for(var unit in widget.category.units){
@@ -65,12 +64,12 @@ class _UnitConverterState extends State<UnitConverter>{
 
  String _format(double conversion){
    var outputNum = conversion.toStringAsPrecision(7);
-   if (outputNum.contains('.')&& outputNum.endsWith('0')){
+   if (outputNum.contains('.') && outputNum.endsWith('0')){
      var i = outputNum.length -1;
      while(outputNum[i] == '0'){
        i -= 1;
      }
-     outputNum = outputNum.substring(0, i+1);
+     outputNum = outputNum.substring(0, i + 1);
    }
    if (outputNum.endsWith('.')){
      return outputNum.substring(0, outputNum.length -1);
@@ -176,6 +175,45 @@ return widget.category.units.firstWhere(
 
       ],
       ),
+    );
+    final arrows= RotatedBox(
+      quarterTurns: 1,
+      child: Icon(
+        Icons.compare_arrows,
+        size: 40.0,
+      ),
+    );
+    final output = Padding(
+      padding: _padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          InputDecorator(
+            child: Text( 
+              _convertedValue,
+              style: Theme.of(context).textTheme.display1,
+            ),
+          decoration: InputDecoration(
+            labelText: 'Output',
+            labelStyle: Theme.of(context).textTheme.display1,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0.0),
+            ),
+           ),
+            ),
+           _createDropdown(_toValue.name, _updateToConversion),
+
+        ],
+      ),
+    );
+
+    final converter = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        input,
+        arrows,
+        output,
+      ],
     );
     return Padding(
       padding: _padding,
