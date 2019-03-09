@@ -21,7 +21,13 @@ class _UnitConverterState extends State<UnitConverter>{
  String _convertedValue ='';
  List<DropdownMenuItem> _unitMenuItems;
  bool _showValidationError = false;
- 
+
+ @override 
+ void initState(){
+   super.initState();
+   _createDropdownMenuItems();
+   _setDefaults();
+ }
   @override
   Widget build(context){
     final input =Padding(
