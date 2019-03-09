@@ -68,7 +68,7 @@ static const _baseColors =<ColorSwatch>[
   @override
  void initState() { 
   super.initState();
-  for (var i= 0; < _categoryNames.length; i++){
+  for (var i= 0; i < _categoryNames.length; i++){
 var category = Category(
   name: _categoryNames[i],
   color: _baseColors[i],
@@ -105,7 +105,7 @@ List<Unit> _retrieveUnitList(String categoryName){
     i += 1;
     return Unit(
       name: '$categoryName Unit $i',
-      conversation: i.toDouble(),
+      conversion: i.toDouble(),
     );
   });
 }
@@ -122,15 +122,15 @@ List<Unit> _retrieveUnitList(String categoryName){
     );
 
     return Backdrop(
-      _currentCategory:
+      currentCategory:
       _currentCategory==null ?
        _defaultCategory: _currentCategory,
-       frontpanel: _currentCategory == null ?
+       frontPanel: _currentCategory == null ?
        UnitConverter(category: _defaultCategory)
        : UnitConverter(category: _currentCategory),
       backPanel: listview,
       frontTitle: Text('Unit converter'),
-      backTile: Text('Select a Category'),
+      backTitle: Text('Select a Category'),
     );
   }
 }
