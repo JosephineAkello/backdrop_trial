@@ -77,6 +77,25 @@ class _UnitConverterState extends State<UnitConverter>{
    }
    return outputNum;
  }
+ void _updateConversion(){
+   setState(() {
+        if (input == null || input.isEmpty){
+          _convertedValue ='';
+        }
+        else{
+          try{
+            final inputDouble = double.parse(input);
+            _showValidationError = false;
+            _inputValue = inputDouble;
+   _updateConversion();
+          }
+          on Exception catch (e){
+            print('Error: $e');
+            _showValidationError = true;
+          }
+        }
+      });
+ }
   @override
   Widget build(context){
     final input =Padding(
