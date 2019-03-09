@@ -28,6 +28,14 @@ class _UnitConverterState extends State<UnitConverter>{
    _createDropdownMenuItems();
    _setDefaults();
  }
+ @override
+ void didUpdateWidget(UnitConverter old){
+   super.didUpdateWidget(old);
+   if(old.category != widget.category){
+     _createDropdownMenuItems();
+     _setDefaults();
+   }
+ }
   @override
   Widget build(context){
     final input =Padding(
