@@ -96,6 +96,15 @@ class _UnitConverterState extends State<UnitConverter>{
         }
       });
  }
+ Unit _getUnit(String unitName){
+return widget.category.units.firstWhere(
+  (Unit unit){
+    return unit.name == unitName;
+  },
+  orElse: null,
+);
+ }
+ 
   @override
   Widget build(context){
     final input =Padding(
