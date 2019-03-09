@@ -15,6 +15,13 @@ _UnitConverterState createState() => _UnitConverterState();
 }
 
 class _UnitConverterState extends State<UnitConverter>{
+ Unit _fromValue;
+ Unit _toValue;
+ double _inputValue;
+ String _convertedValue ='';
+ List<DropdownMenuItem> _unitMenuItems;
+ bool _showValidationError = false;
+ 
   @override
   Widget build(context){
     final input =Padding(
