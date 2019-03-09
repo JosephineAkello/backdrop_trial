@@ -20,7 +20,7 @@ final GestureDragUpdateCallback onVerticalDragUpdate;
 final GestureDragEndCallback onVerticalDragEnd;
 final Widget title;
 final Widget child;
-}
+
 
 @override
 Widget build(context){
