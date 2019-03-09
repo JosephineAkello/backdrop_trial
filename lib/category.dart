@@ -8,14 +8,13 @@ class Category {
   final List<Unit> units;
   final IconData iconLocation;
 
-
-const Category({
-  @required this.name,
-  @required this.color,
-  @required this.units,
-  @required this.iconLocation,
-})  : assert(name != null),
-      assert(color != null),
-      assert(iconLocation != null);
-
-      }
+  const Category({
+    @required this.name,
+    @required this.color,
+    @required this.units,
+    @required this.iconLocation,
+  })  : assert(name != null),
+        assert(color != null),
+        assert(units != null),
+        assert(iconLocation != null);
+}
