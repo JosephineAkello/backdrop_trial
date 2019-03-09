@@ -51,6 +51,16 @@ class _UnitConverterState extends State<UnitConverter>{
          ),
          ));
    }
+   setState(() {
+   _unitMenuItems = newItems;
+      });
+ }
+
+ void _setDefaults(){
+   setState(() {
+        _fromValue = widget.category.units[0];
+        _toValue = widget.category.units[1];
+      });
  }
   @override
   Widget build(context){
