@@ -62,6 +62,21 @@ class _UnitConverterState extends State<UnitConverter>{
         _toValue = widget.category.units[1];
       });
  }
+
+ String _format(double conversion){
+   var outputNum = conversion.toStringAsPrecision(7);
+   if (outputNum.contains('.')&& outputNum.endsWith('0')){
+     var i = outputNum.length -1;
+     while(outputNum[i] == '0'){
+       i -= 1;
+     }
+     outputNum = outputNum.substring(0, i+1);
+   }
+   if (outputNum.endsWith('.')){
+     return outputNum.substring(0, outputNum.length -1);
+   }
+   return outputNum;
+ }
   @override
   Widget build(context){
     final input =Padding(
