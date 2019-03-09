@@ -104,7 +104,24 @@ return widget.category.units.firstWhere(
   orElse: null,
 );
  }
- 
+
+ void _updateFromConversion(dynamic unitName){
+   setState(() {
+   _fromValue = _getUnit(unitName);
+      });
+      if(_inputValue != null){
+        _updateConversion();
+      }
+ }
+
+ void _updateToConversion(dynamic unitName){
+   setState(() {
+   _toValue = _getUnit(unitName);
+      });
+      if(_inputValue != null){
+        _updateConversion();
+      }
+ }
   @override
   Widget build(context){
     final input =Padding(
