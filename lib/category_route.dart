@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'category.dart';
+import 'category_tile.dart';
 import 'unit.dart';
 import 'backdrop.dart';
 import 'unit_converter.dart';
