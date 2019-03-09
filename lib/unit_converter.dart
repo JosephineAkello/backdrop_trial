@@ -76,6 +76,11 @@ class _UnitConverterState extends State<UnitConverter>{
    }
    return outputNum;
  }
+ void _updateConversion(){
+   setState(() {
+   _convertedValue = _format(_inputValue * (_toValue.conversion / _fromValue.conversion));
+      });
+ }
  void _updateInputValue(String input){
    setState(() {
         if (input == null || input.isEmpty){
