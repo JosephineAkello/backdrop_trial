@@ -36,6 +36,22 @@ class _UnitConverterState extends State<UnitConverter>{
      _setDefaults();
    }
  }
+
+ @override
+ void _createDropdownMenuItems(){
+   var newItems =<DropdownMenuItem>[];
+   for(var unit in widget.category.units){
+     newItems.add(DropdownMenuItem(
+       value: unit.name,
+       child: Container(
+         child: Text(
+           unit.name,
+           softWrap: true,
+         ),
+         ),
+         ));
+   }
+ }
   @override
   Widget build(context){
     final input =Padding(
